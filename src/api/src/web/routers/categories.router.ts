@@ -3,7 +3,7 @@ import {
   getCategoriesController,
   addCategoryController,
   updateCategoryController,
-} from '../controllers/categories.constroller';
+} from '../controllers/categories.controller';
 
 export const categoriesRouter = new Router({
   prefix: '/api/categories',
@@ -47,7 +47,6 @@ categoriesRouter.post('/search', getCategoriesController);
  * { name: string }
  * @apiSuccessExample {json} Success-Response: String
  */
-// TODO: maybe replace POST with GET using query params
 categoriesRouter.post('/', addCategoryController);
 
 /**

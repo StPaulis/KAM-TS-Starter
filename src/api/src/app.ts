@@ -6,7 +6,7 @@ import mongoose from 'mongoose';
 import {getEnviromentVariables} from './core/enviroment-variables';
 import {containerRegistries} from './core/utils';
 import {httpErrorHandler} from './core/utils/http.utils';
-import {categoriesRouter} from './web/routers';
+import {categoriesRouter, companiesRouter} from './web/routers';
 
 const app = new Koa();
 app.use(bodyParser());
@@ -38,6 +38,7 @@ process.on('SIGINT', () => {
 });
 // #endregion
 
+// #region Middleware To Inject Services To Scoped Context & Handle Errors
 app.use(async (ctx, next) => {
     try {
         ctx.scope = container.createScope();
@@ -46,8 +47,12 @@ app.use(async (ctx, next) => {
         httpErrorHandler(err, ctx);
     }
 });
+// #endregion
 
+// #region Routers
 app.use(categoriesRouter.routes());
+app.use(companiesRouter.routes());
+// //#endregion
 
 console.log('Server is listening in: ' + getEnviromentVariables().apiPort);
 app.listen(getEnviromentVariables().apiPort);
