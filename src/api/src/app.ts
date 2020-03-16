@@ -6,6 +6,7 @@ import mongoose from 'mongoose';
 import {getEnviromentVariables} from './core/enviroment-variables';
 import {containerRegistries} from './core/utils';
 import {httpErrorHandler} from './core/utils/http.utils';
+import {categoriesRouter} from './web/routers';
 
 const app = new Koa();
 app.use(bodyParser());
@@ -46,9 +47,7 @@ app.use(async (ctx, next) => {
     }
 });
 
-app.use(async ctx => {
-    ctx.body = 'Server is up';
-});
+app.use(categoriesRouter.routes());
 
 console.log('Server is listening in: ' + getEnviromentVariables().apiPort);
 app.listen(getEnviromentVariables().apiPort);
