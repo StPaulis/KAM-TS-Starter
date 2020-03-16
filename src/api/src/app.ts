@@ -1,13 +1,20 @@
+import * as awilix from 'awilix';
 import Koa from 'koa';
 import bodyParser from 'koa-bodyparser';
 import KoaCors from 'koa-cors';
 import mongoose from 'mongoose';
 import {getEnviromentVariables} from './core/enviroment-variables';
+import {containerRegistries} from './core/utils';
 import {httpErrorHandler} from './core/utils/http.utils';
 
 const app = new Koa();
 app.use(bodyParser());
 app.use(KoaCors());
+
+// #region Awilix
+const container = awilix.createContainer();
+container.register(containerRegistries);
+// //#endregion
 
 // #region Mongo
 mongoose.connect(getEnviromentVariables().mongoConnection, {
@@ -32,6 +39,7 @@ process.on('SIGINT', () => {
 
 app.use(async (ctx, next) => {
     try {
+        ctx.scope = container.createScope();
         await next();
     } catch (err) {
         httpErrorHandler(err, ctx);
