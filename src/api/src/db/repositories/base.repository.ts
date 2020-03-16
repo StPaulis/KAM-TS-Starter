@@ -44,11 +44,14 @@ export abstract class BaseRepository<T extends mongoose.Document> implements Rep
     return await this.db.findById(id).exec();
   }
 
-  // Search Base On Search Model
+  // The function below is responsible to create a db query from the input object
+  // and return the results in a certain format.
+  // It is usefull for paging, sorting and filtering and it can be extented for more complex scenarios
   public async search(searchModel: Searcher): Promise<SearcherResponse<T>> {
     const match: { $match: { [key: string]: any } }[] = [];
     const sort: { $sort: { [key: string]: 1 | -1 } }[] = [];
 
+    // Create Match Expressions
     searchModel.filters.forEach(filter => {
       const query = {} as any;
       query[filter.name] = filter.value;
@@ -56,6 +59,7 @@ export abstract class BaseRepository<T extends mongoose.Document> implements Rep
       match.push(aggr);
     });
 
+    // Create Sort Expressions
     if (searchModel.order) {
       searchModel.order.forEach(order => {
         const query = {} as any;
@@ -65,6 +69,7 @@ export abstract class BaseRepository<T extends mongoose.Document> implements Rep
       });
     }
 
+    // Make the query & format the results
     const result = (await this.db
       .aggregate([
         ...match,
