@@ -1,0 +1,41 @@
+{
+  "name": "kam_ts_api",
+  "version": "1.0.0",
+  "description": "Koa Ts Angular Mongo Starter | Company Management Demo Example",
+  "main": "index.js",
+  "scripts": {
+    "start": "node ./dist/app.js",
+    "lint": "tslint -p tsconfig.json",
+    "prebuild": "tslint -c tslint.json -p tsconfig.json --fix",
+    "build": "tsc -p tsconfig.json",
+    "clean": "rm -rf dist/*",
+    "devjs": "nodemon ./dist/index.js",
+    "dev": "ts-node ./src/index.ts",
+    "dev:watch": "nodemon"
+  },
+  "keywords": [
+    "koa",
+    "typescript",
+    "angular",
+    "mongo"
+  ],
+  "author": "Stamatis Pavlis",
+  "license": "MIT",
+  "dependencies": {
+    "koa": "~2.11.0",
+    "koa-bodyparser": "~4.2.1",
+    "koa-cors": "~0.0.16",
+    "koa-jwt": "~3.6.0",
+    "koa-router": "~7.4.0"
+  },
+  "devDependencies": {
+    "@types/koa": "~2.0.48",
+    "@types/koa-bodyparser": "~4.2.2",
+    "@types/koa-cors": "~0.0.0",
+    "@types/koa-router": "~7.0.40",
+    "nodemon": "~2.0.2",
+    "ts-node": "~8.6.2",
+    "tslint": "~6.0.0",
+    "typescript": "~3.8.2"
+  }
+}
