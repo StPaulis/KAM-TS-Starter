@@ -1,8 +1,8 @@
 import * as awilix from 'awilix';
-import {CategoriesRepository, CompaniesRepository} from '../../db/repositories';
-import {CategoriesService, CompaniesService} from '../../logic/services';
+import { CategoriesRepository, CompaniesRepository } from '../../db/repositories';
+import { CategoriesService, CompaniesService } from '../../logic/services';
 
-export let containerRegistries: awilix.NameAndRegistrationPair<any> =  {
+export let containerRegistries: awilix.NameAndRegistrationPair<any> = {
   categoriesRepository: awilix.asClass(CategoriesRepository).singleton(),
   categoriesService: awilix.asClass(CategoriesService).scoped(),
 

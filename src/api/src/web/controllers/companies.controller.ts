@@ -1,6 +1,6 @@
-import {Context,Next} from 'koa';
-import {ICompany} from '../../db/schemas';
-import {Searcher} from '../../logic/models/searcher.model';
+import { Context, Next } from 'koa';
+import { ICompany } from '../../db/schemas';
+import { Searcher } from '../../logic/models/searcher.model';
 import * as services from '../../logic/services';
 
 const serviceName = 'companiesService';
@@ -45,6 +45,8 @@ export const associateCategoryToCompanyController = async (ctx: Context, next: N
   const { companyId, categoryId } = ctx.request.body as { companyId: string; categoryId: string };
 
   const company = await srv.findById(companyId);
+
+  // If exist, remove, otherwise, insert
   company.categories = company.categories.some(cat => cat.toString() === categoryId)
     ? company.categories.filter(x => x.toString() !== categoryId)
     : [...company.categories, categoryId];

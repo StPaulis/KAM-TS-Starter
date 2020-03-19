@@ -3,6 +3,7 @@ import * as mongoose from 'mongoose';
 import { Searcher, SearcherResponse } from '../models/searcher.model';
 import { BaseRepository } from '../../db/repositories/base.repository';
 import { Service } from './_service.interface';
+import { idx } from '../../core/utils/object.utils';
 
 export abstract class BaseService<T extends mongoose.Document> implements Service<T> {
   public readonly repository: BaseRepository<T>;
@@ -14,7 +15,8 @@ export abstract class BaseService<T extends mongoose.Document> implements Servic
   public async update(item: T): Promise<T> {
     try {
       console.log('Update Started: ' + JSON.stringify(item, null, 2));
-      return await this.repository.update(item);
+      const result = await this.repository.update(item);
+      return this.mapToJson(result);
     } catch (err) {
       throw new Error('Updating failed');
     } finally {
@@ -38,6 +40,7 @@ export abstract class BaseService<T extends mongoose.Document> implements Servic
     console.log('FindById Started: ' + id);
     try {
       const result = await this.repository.findById(id);
+      console.log('resultBeforMap', result);
       return this.mapToJson(result);
     } catch (error) {
       console.log(error);
@@ -64,10 +67,16 @@ export abstract class BaseService<T extends mongoose.Document> implements Servic
   }
 
   private mapToJson(item: T): T {
-    const result = item.toJSON ? item.toJSON() : item;
-    result.id = item._id;
-    delete result._id;
-    delete result.__v;
-    return result;
+    console.log('map', item);
+    return idx(item, _ => {
+      console.log('result', item);
+      const result = _.toJSON();
+      console.log('result1', result);
+      result.id = result._id;
+      delete result._id;
+      delete result.__v;
+      console.log('result2', result);
+      return result;
+    });
   }
 }

@@ -20,16 +20,6 @@ export abstract class BaseRepository<T extends mongoose.Document> implements Rep
     }
   }
 
-  public async delete(id: string): Promise<boolean> {
-    try {
-      const res = await this.db.findByIdAndDelete(id).exec();
-      return !!res;
-    } catch (error) {
-      console.error(error);
-      throw new Error('Delete failed');
-    }
-  }
-
   public async insert(item: T): Promise<string> {
     try {
       const res = await this.db.create(item);
@@ -40,7 +30,7 @@ export abstract class BaseRepository<T extends mongoose.Document> implements Rep
     }
   }
 
-  public async findById(id: string): Promise<T | null> {
+  public async  findById(id: string): Promise<T | null> {
     return await this.db.findById(id).exec();
   }
 
