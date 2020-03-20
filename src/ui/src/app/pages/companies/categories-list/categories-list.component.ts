@@ -19,8 +19,6 @@ export class CategoriesListComponent {
   @Input() data: Category[] = [];
   @Input() selected: Category = null;
   @Output() selectedChange = new EventEmitter<Category>();
-
-  onSelectedChange(category: Category) {
-    this.selectedChange.emit(category);
-  }
+  @Output() addClicked = new EventEmitter<void>();
+  @Output() editClicked = new EventEmitter<Category>();
 }

@@ -1,18 +1,31 @@
 <p-listbox
-  style="max-height: 50vh"
-  [styleClass]="'w-100'"
+  [styleClass]="'w-100 mh-50'"
   [options]="data"
   [ngModel]="selected"
-  (ngModelChange)="onSelectedChange($event)"
+  (ngModelChange)="selectedChange.emit($event)"
   optionLabel="name"
 >
   <p-header class="d-flex justify-content-between align-items-center">
-    <div>
+    <div class="font-weight-bold">
       Categories
     </div>
     <div>
-      <button class="btn btn-sm btn-outline-primary border-0 my-auto">
+      <button
+        *ngIf="!!selected"
+        (click)="editClicked.emit(selected)"
+        class="btn btn-sm btn-outline-primary border-0 my-auto"
+      >
+        <i class="pi pi-pencil"></i>
+      </button>
+      <button (click)="addClicked.emit()" class="btn btn-sm btn-outline-primary border-0 my-auto">
         <i class="pi pi-plus"></i>
+      </button>
+      <button
+        *ngIf="!!selected"
+        (click)="selectedChange.emit(undefined)"
+        class="btn btn-sm btn-outline-primary border-0 my-auto"
+      >
+        <i class="pi pi-ban"></i>
       </button>
     </div>
   </p-header>

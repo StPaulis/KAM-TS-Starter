@@ -1,9 +1,11 @@
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ListboxModule } from 'primeng/listbox';
+import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { DataViewModule } from 'primeng/dataview';
+import { ListboxModule } from 'primeng/listbox';
+import { PanelModule } from 'primeng/panel';
 
-const PrimengModules = [ListboxModule];
+const PrimengModules = [DataViewModule, ListboxModule, PanelModule];
 
 @NgModule({
   declarations: [],
