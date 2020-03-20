@@ -75,7 +75,7 @@ describe('Get By Id', () => {
     const srv = new CategoriesService({ categoriesRepository: new CategoriesRepository() });
     const result = await srv.findById('');
     expect(spy).toHaveBeenCalledTimes(1);
-    expect(result).toBeNull();
+    expect(result.id).toBeUndefined();
   });
 });
 
@@ -106,7 +106,7 @@ describe('Update', () => {
     const srv = new CategoriesService({ categoriesRepository: new CategoriesRepository() });
     const result = await srv.update({} as undefined);
     expect(spy).toHaveBeenCalledTimes(1);
-    expect(result).toBeNull();
+    expect(result.id).toBeUndefined();
   });
 });
 
