@@ -4,12 +4,16 @@ import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
   selector: 'cmd-layout',
   templateUrl: './layout.component.html',
   changeDetection: ChangeDetectionStrategy.Default,
-  styles: [`
-  header {
-    background-color: var(--primary);
-    height: 33vh;
-    clip-path: polygon(0 0, 100% 0, 100% 70%, 50% 100%, 0% 70%, 0 0);
-  }
-`]
+  styles: [
+    `
+      header {
+        background-color: var(--primary);
+        height: 33vh;
+        clip-path: polygon(0 0, 100% 0, 100% 70%, 50% 100%, 0% 70%, 0 0);
+      }
+    `,
+  ],
 })
-export class LayoutComponent {}
+export class LayoutComponent {
+  year = new Date().getFullYear();
+}

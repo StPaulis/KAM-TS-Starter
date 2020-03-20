@@ -1,10 +1,25 @@
 /* Global styles */
 @import url('https://fonts.googleapis.com/css?family=Roboto&display=swap');
 
-html, body {
-    font-family: 'Roboto', sans-serif;
+html,
+body {
+  font-family: 'Roboto', sans-serif;
 }
 
 body .ui-listbox .ui-listbox-header {
-    background-color: #f4f4f4;
+  background-color: #f4f4f4;
+}
+
+.mydialog {
+  width: 50vw;
+}
+
+@media screen and (max-width: 40em) {
+  .mydialog {
+    width: 75vw;
+  }
+}
+
+body .ui-dialog .ui-dialog-content {
+  min-height: 250px;
 }

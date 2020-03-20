@@ -1,5 +1,14 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
-import { Company } from 'src/app/models';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  EventEmitter,
+  Input,
+  Output,
+  OnInit,
+  OnChanges,
+  ChangeDetectorRef,
+} from '@angular/core';
+import { Company, Category } from 'src/app/models';
 
 @Component({
   selector: 'cmd-company-write',

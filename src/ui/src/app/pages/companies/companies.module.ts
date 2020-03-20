@@ -7,6 +7,7 @@ import { CompaniesListComponent } from './companies-list/companies-list.componen
 import { CompaniesRoutingModule } from './companies-routing.module';
 import { CompaniesComponent } from './companies.component';
 import { CompanyWriteComponent } from './company-write/company-write.component';
+import { AssociateCategoryComponent } from './associate-category/associate-category.component';
 
 @NgModule({
   declarations: [
@@ -15,6 +16,7 @@ import { CompanyWriteComponent } from './company-write/company-write.component';
     CompaniesListComponent,
     CategoryWriteComponent,
     CompanyWriteComponent,
+    AssociateCategoryComponent,
   ],
   imports: [CommonModule, CompaniesRoutingModule, SharedModule],
 })

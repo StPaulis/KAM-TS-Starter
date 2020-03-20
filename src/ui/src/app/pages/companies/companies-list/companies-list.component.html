@@ -2,7 +2,7 @@
   [value]="data"
   [paginator]="true"
   [first]="first"
-  [rows]="10"
+  [rows]="size"
   [lazy]="true"
   (onLazyLoad)="loaded.emit($event)"
   [totalRecords]="total"
@@ -21,7 +21,7 @@
     </div>
   </p-header>
   <ng-template let-item pTemplate="gridItem">
-    <div style="padding:.5em" class="ui-g-12 {{ total % 3 === 0 ? 'ui-md-4' : 'ui-md-3' }}">
+    <div style="padding:.5em" class="ui-g-12 {{ data?.length % 3 === 0 ? 'ui-md-4' : 'ui-md-3' }}">
       <p-panel [header]="item.name" [style]="{ 'text-align': 'center' }">
         <img [attr.src]="item.logoUrl" width="60" />
         <div class="text-muted">{{ item.email }}</div>

@@ -1,10 +1,11 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
-import { Category, SearchOrder, SearchFilter, Company } from 'src/app/models';
-import { CategoriesDataService } from 'src/app/services/data/categories-data.service';
-import { CompaniesApiService } from 'src/app/services/api/companies-api.service';
+import { Category, Company, SearchFilter, SearchOrder } from 'src/app/models';
 import { CategoriesApiService } from 'src/app/services/api/categories-api.service';
+import { CompaniesApiService } from 'src/app/services/api/companies-api.service';
+import { CategoriesDataService } from 'src/app/services/data/categories-data.service';
 
 @Component({
   selector: 'cmd-companies',
@@ -20,7 +21,7 @@ export class CompaniesComponent implements OnInit, OnDestroy {
   page = {
     first: 0,
     total: 0,
-    size: 10,
+    size: 9,
   };
   defaultOrdering: SearchOrder = { name: 'name', value: 'asc' };
   onDestroy = new Subject();
@@ -28,12 +29,29 @@ export class CompaniesComponent implements OnInit, OnDestroy {
   constructor(
     public categoriesDataSrv: CategoriesDataService,
     private categoriesApiSrv: CategoriesApiService,
-    private companiesApiSrv: CompaniesApiService
+    private companiesApiSrv: CompaniesApiService,
+    private route: ActivatedRoute,
+    private router: Router
   ) {}
 
   ngOnInit() {
     this.categoriesDataSrv.categories$.pipe(takeUntil(this.onDestroy)).subscribe(x => {
       this.categories = x;
+    });
+
+    this.route.params.pipe(takeUntil(this.onDestroy)).subscribe(x => {
+      if (!x || !x.id || !!this.companyModel) {
+        return;
+      }
+
+      if (this.companies && this.companies.some(c => c.id === x.id)) {
+        this.companyModel = { ...this.companies.find(c => c.id === x.id) };
+        return;
+      }
+
+      this.companiesApiSrv.getbyId(x.id).subscribe(res => {
+        this.companyModel = res || null;
+      });
     });
   }
 
@@ -65,7 +83,8 @@ export class CompaniesComponent implements OnInit, OnDestroy {
   }
 
   onEditCompanyClicked(model: Company) {
-    this.companyModel = model;
+    console.log('clicke', model);
+    this.router.navigate(['companies/' + model.id]);
   }
 
   onEditCompanySubmited(model: Company) {
@@ -81,7 +100,6 @@ export class CompaniesComponent implements OnInit, OnDestroy {
           this.companies = this.companies.map(company =>
             company.id === x.id ? { ...company, ...x } : company
           );
-          this.companyModel = null;
         }
       });
   }
@@ -107,7 +125,7 @@ export class CompaniesComponent implements OnInit, OnDestroy {
   }
 
   onEditCategoryClicked(model: Category) {
-    this.categoryModel = model;
+    this.categoryModel = { ...model };
   }
 
   onEditCategorySubmited(model: Category) {
@@ -129,7 +147,23 @@ export class CompaniesComponent implements OnInit, OnDestroy {
       });
   }
 
-  private loadData(event: { first: number }) {
+  onAssociateCategoryClicked(model: { companyId: string; categoryId: string }) {
+    this.companiesApiSrv.associateCategory(model).subscribe(res => {
+      if (!res) {
+        return;
+      }
+
+      this.companyModel = { ...this.companyModel, categories: res.categories };
+      this.companies = this.companies.map(x => (res.id === x.id ? res : x));
+    });
+  }
+
+  clearCompanyModel() {
+    this.companyModel = null;
+    this.router.navigate(['companies']);
+  }
+
+  loadData(event: { first: number }) {
     this.page.first = event.first;
     this.companiesApiSrv
       .search({
@@ -143,7 +177,8 @@ export class CompaniesComponent implements OnInit, OnDestroy {
           return;
         }
 
-        (this.companies = x.data), (this.page.total = x.filtered);
+        this.companies = x.data;
+        this.page.total = x.total;
       });
   }
 

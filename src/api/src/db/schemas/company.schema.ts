@@ -1,18 +1,17 @@
-import mongoose, { Schema, Document, } from 'mongoose';
-import { ICategory } from './category.schema';
+import mongoose, { Document, Schema } from 'mongoose';
 
 export interface ICompany extends Document {
   name: string;
   logoUrl: string;
   email: string;
-  categories: ICategory['_id'][];
+  categories: string[];
 }
 
 export const CompanySchema: Schema = new Schema({
   name: { type: String, required: true, unique: true },
   logoUrl: { type: String, required: true },
   email: { type: String },
-  categories: [{ type: Schema.Types.ObjectId }],
+  categories: [{ type: String }],
 });
 
 export const CompanySchemaName = 'Company';

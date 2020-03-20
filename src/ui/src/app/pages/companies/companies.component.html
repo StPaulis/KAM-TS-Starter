@@ -1,5 +1,5 @@
 <div class="row">
-  <div class="col-12 col-sm-3 mb-1">
+  <div class="col-12 col-sm-3 mb-2">
     <cmd-categories-list
       [data]="categories"
       [(selected)]="selectedCategory"
@@ -14,6 +14,7 @@
       [data]="companies"
       [total]="page.total"
       [first]="page.first"
+      [size]="page.size"
       (loaded)="loadData($event)"
       (addClicked)="onAddCompanyClicked()"
       (editClicked)="onEditCompanyClicked($event)"
@@ -25,7 +26,7 @@
   header="New Category"
   [visible]="!!categoryModel && !categoryModel.id"
   (visibleChange)="categoryModel = null"
-  [style]="{ width: '50vw' }"
+  styleClass="mydialog"
   [baseZIndex]="10000"
 >
   <cmd-category-write [model]="categoryModel" (saveClicked)="onAddCategorySubmited($event)">
@@ -36,7 +37,7 @@
   header="Edit Category {{ categoryModel?.name }}"
   [visible]="!!categoryModel?.id"
   (visibleChange)="categoryModel = null"
-  [style]="{ width: '50vw' }"
+  styleClass="mydialog"
   [baseZIndex]="10000"
 >
   <cmd-category-write [model]="categoryModel" (saveClicked)="onEditCategorySubmited($event)">
@@ -46,8 +47,8 @@
 <p-dialog
   header="New Company"
   [visible]="!!companyModel && !companyModel.id"
-  (visibleChange)="companyModel = null"
-  [style]="{ width: '50vw' }"
+  (visibleChange)="clearCompanyModel()"
+  styleClass="mydialog"
   [baseZIndex]="10000"
 >
   <cmd-company-write [model]="companyModel" (saveClicked)="onAddCompanySubmited($event)">
@@ -57,10 +58,23 @@
 <p-dialog
   header="Edit Company {{ companyModel?.name }}"
   [visible]="!!companyModel?.id"
-  (visibleChange)="companyModel = null"
+  (visibleChange)="clearCompanyModel()"
   [style]="{ width: '75vw' }"
+  styleClass="mydialog"
   [baseZIndex]="10000"
 >
-  <cmd-company-write [model]="companyModel" (saveClicked)="onEditCompanySubmited($event)">
-  </cmd-company-write>
+  <p-tabView>
+    <p-tabPanel header="Details">
+      <cmd-company-write [model]="companyModel" (saveClicked)="onEditCompanySubmited($event)">
+      </cmd-company-write>
+    </p-tabPanel>
+    <p-tabPanel header="Categories">
+      <cmd-associate-category
+        [categories]="categories"
+        [company]="companyModel"
+        (associate)="onAssociateCategoryClicked($event)"
+      >
+      </cmd-associate-category>
+    </p-tabPanel>
+  </p-tabView>
 </p-dialog>

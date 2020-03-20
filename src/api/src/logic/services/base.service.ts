@@ -29,7 +29,6 @@ export abstract class BaseService<T extends mongoose.Document> implements Servic
       console.log('Inserting Started: ' + JSON.stringify(item, null, 2));
       return await this.repository.insert(item);
     } catch (error) {
-      console.log(error);
       throw new Error('Inserting Failed...');
     } finally {
       console.log('Inserting Finished');
@@ -40,7 +39,7 @@ export abstract class BaseService<T extends mongoose.Document> implements Servic
     console.log('FindById Started: ' + id);
     try {
       const result = await this.repository.findById(id);
-      console.log('resultBeforMap', result);
+      console.log(this.mapToJson(result));
       return this.mapToJson(result);
     } catch (error) {
       console.log(error);
@@ -67,15 +66,11 @@ export abstract class BaseService<T extends mongoose.Document> implements Servic
   }
 
   private mapToJson(item: T): T {
-    console.log('map', item);
     return idx(item, _ => {
-      console.log('result', item);
-      const result = _.toJSON();
-      console.log('result1', result);
+      const result = _ && _.toJSON ? _.toJSON() : {..._} ;
       result.id = result._id;
       delete result._id;
       delete result.__v;
-      console.log('result2', result);
       return result;
     });
   }

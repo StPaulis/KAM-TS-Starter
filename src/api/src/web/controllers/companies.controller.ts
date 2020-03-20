@@ -51,6 +51,7 @@ export const associateCategoryToCompanyController = async (ctx: Context, next: N
     ? company.categories.filter(x => x.toString() !== categoryId)
     : [...company.categories, categoryId];
 
+  console.log('Association', company, ctx.request.body);
   const result = await srv.update(company);
 
   if (result) {

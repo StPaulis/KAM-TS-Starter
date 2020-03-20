@@ -3,11 +3,21 @@ import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { DataViewModule } from 'primeng/dataview';
 import { DialogModule } from 'primeng/dialog';
+import { DropdownModule } from 'primeng/dropdown';
 import { InputTextModule } from 'primeng/inputtext';
 import { ListboxModule } from 'primeng/listbox';
 import { PanelModule } from 'primeng/panel';
+import { TabViewModule } from 'primeng/tabview';
 
-const PrimengModules = [InputTextModule, DataViewModule, ListboxModule, PanelModule, DialogModule];
+const PrimengModules = [
+  DataViewModule,
+  DialogModule,
+  DropdownModule,
+  InputTextModule,
+  ListboxModule,
+  PanelModule,
+  TabViewModule,
+];
 
 @NgModule({
   declarations: [],

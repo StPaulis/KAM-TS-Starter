@@ -1,0 +1,27 @@
+<p-listbox [styleClass]="'w-100 a-listbox'" [options]="data" [(ngModel)]="forRemove" optionLabel="name">
+  <p-header>
+    <p-dropdown
+      [options]="nonAssociatedCategories"
+      [(ngModel)]="forAdd"
+      placeholder="Choose to Add"
+      optionLabel="name"
+      [showClear]="false"
+    ></p-dropdown>
+  </p-header>
+</p-listbox>
+
+<button
+  *ngIf="forAdd"
+  (click)="associate.emit({ companyId: company.id, categoryId: forAdd.id })"
+  class="btn btn-sm btn-success mt-1"
+>
+  Add
+</button>
+
+<button
+  *ngIf="forRemove"
+  (click)="associate.emit({ companyId: company.id, categoryId: forRemove.id })"
+  class="btn btn-sm btn-danger mt-1"
+>
+  Remove
+</button>
