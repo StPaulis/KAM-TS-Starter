@@ -45,7 +45,7 @@ You can see the project running in http://188.166.27.17:4205 inside Digital Ocea
 
  ## Issues - Todos
  1) Unit tests for the server startup, that would ensure that the application starts successfully are missing. 
- 2) The client app should ensure that full functionality with  e2e tests. Protractor is already set, from angular cli.
+ 2) The client app should ensure full functionality with  e2e tests. Protractor is already set from angular cli.
 
  ## Variables
 

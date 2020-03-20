@@ -7,7 +7,6 @@ WORKDIR /usr/src/app
 COPY package.json /usr/src/app/
 
 RUN npm install
-RUN npm run build
 
 FROM node:12.4.0-alpine
 
@@ -17,5 +16,6 @@ COPY . /usr/src/app
 
 EXPOSE 3000
 
+RUN npm run build
 
 CMD [ "npm", "start" ]
