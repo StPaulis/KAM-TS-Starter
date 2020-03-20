@@ -1,7 +1,11 @@
 # kam-ts
 Koa Mongo Angular TypeScript, crud api starter for a Company Management Demo project.
 
-You can see the project running in http://188.166.27.17:4205
+The client has been generated with Angular CLI.
+ PrimeNg components & Bootstrap have been used to build the UI.
+
+You can see the project running in http://188.166.27.17:4205 inside Digital Ocean's droplet.
+
 ## Requirements
 
 - Node >= 12.4.0
@@ -36,7 +40,12 @@ You can see the project running in http://188.166.27.17:4205
 
  ## Considerations
 
- In this project authentication was not implemented, although it would be easy to use JSON Web Token as OAuth 2.0 Bearer Token to implement the Authentication flow.    
+ 1) In this project authentication was not implemented, although it would be easy to use JSON Web Token as OAuth 2.0 Bearer Token to implement the Authentication flow.
+ 2) When the database does not have any entities, default data are automatically generated.
+
+ ## Issues - Todos
+ 1) Unit tests for the server startup, that would ensure that the application starts successfully are missing. 
+ 2) The client app should ensure that full functionality with  e2e tests. Protractor is already set, from angular cli.
 
  ## Variables
 
