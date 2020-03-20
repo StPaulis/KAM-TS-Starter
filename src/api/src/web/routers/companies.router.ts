@@ -50,7 +50,8 @@ companiesRouter.post('/search', getCompaniesController);
  *    logoUrl: string;
  *    email: string;
  * }
- * @apiSuccessExample {json} Success-Response: String
+ * @apiSuccessExample {string} Success-Response:
+ * { String }
  */
 companiesRouter.post('/', addCompanyController);
 

@@ -45,7 +45,8 @@ categoriesRouter.post('/search', getCategoriesController);
  * @apiGroup Categories
  * @apiParamExample {json} Request-Example:
  * { name: string }
- * @apiSuccessExample {json} Success-Response: String
+ * @apiSuccessExample {string} Success-Response:
+ * { String }
  */
 categoriesRouter.post('/', addCategoryController);
 
