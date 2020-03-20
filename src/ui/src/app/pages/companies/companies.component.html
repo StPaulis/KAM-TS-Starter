@@ -20,3 +20,47 @@
     ></cmd-companies-list>
   </div>
 </div>
+
+<p-dialog
+  header="New Category"
+  [visible]="!!categoryModel && !categoryModel.id"
+  (visibleChange)="categoryModel = null"
+  [style]="{ width: '50vw' }"
+  [baseZIndex]="10000"
+>
+  <cmd-category-write [model]="categoryModel" (saveClicked)="onAddCategorySubmited($event)">
+  </cmd-category-write>
+</p-dialog>
+
+<p-dialog
+  header="Edit Category {{ categoryModel?.name }}"
+  [visible]="!!categoryModel?.id"
+  (visibleChange)="categoryModel = null"
+  [style]="{ width: '50vw' }"
+  [baseZIndex]="10000"
+>
+  <cmd-category-write [model]="categoryModel" (saveClicked)="onEditCategorySubmited($event)">
+  </cmd-category-write>
+</p-dialog>
+
+<p-dialog
+  header="New Company"
+  [visible]="!!companyModel && !companyModel.id"
+  (visibleChange)="companyModel = null"
+  [style]="{ width: '50vw' }"
+  [baseZIndex]="10000"
+>
+  <cmd-company-write [model]="companyModel" (saveClicked)="onAddCompanySubmited($event)">
+  </cmd-company-write>
+</p-dialog>
+
+<p-dialog
+  header="Edit Company {{ companyModel?.name }}"
+  [visible]="!!companyModel?.id"
+  (visibleChange)="companyModel = null"
+  [style]="{ width: '75vw' }"
+  [baseZIndex]="10000"
+>
+  <cmd-company-write [model]="companyModel" (saveClicked)="onEditCompanySubmited($event)">
+  </cmd-company-write>
+</p-dialog>

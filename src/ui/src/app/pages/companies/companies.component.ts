@@ -4,6 +4,7 @@ import { takeUntil } from 'rxjs/operators';
 import { Category, SearchOrder, SearchFilter, Company } from 'src/app/models';
 import { CategoriesDataService } from 'src/app/services/data/categories-data.service';
 import { CompaniesApiService } from 'src/app/services/api/companies-api.service';
+import { CategoriesApiService } from 'src/app/services/api/categories-api.service';
 
 @Component({
   selector: 'cmd-companies',
@@ -12,7 +13,9 @@ import { CompaniesApiService } from 'src/app/services/api/companies-api.service'
 })
 export class CompaniesComponent implements OnInit, OnDestroy {
   companies: Company[];
+  companyModel: Company;
   categories: Category[];
+  categoryModel: Category;
   selectedCategory: Category = null;
   page = {
     first: 0,
@@ -24,7 +27,8 @@ export class CompaniesComponent implements OnInit, OnDestroy {
 
   constructor(
     public categoriesDataSrv: CategoriesDataService,
-    private apiSrv: CompaniesApiService
+    private categoriesApiSrv: CategoriesApiService,
+    private companiesApiSrv: CompaniesApiService
   ) {}
 
   ngOnInit() {
@@ -41,22 +45,98 @@ export class CompaniesComponent implements OnInit, OnDestroy {
     this.loadData({ first: 0 });
   }
 
-  onAddCompanyClicked() {}
+  onAddCompanyClicked() {
+    this.companyModel = {} as Company;
+  }
 
-  onEditCompanyClicked(model: Company) {}
+  onAddCompanySubmited(model: Company) {
+    this.companiesApiSrv
+      .add({
+        name: model.name,
+        logoUrl: model.logoUrl,
+        email: model.email,
+      })
+      .subscribe(x => {
+        if (x) {
+          this.loadData({ first: this.page.first });
+          this.companyModel = null;
+        }
+      });
+  }
 
-  onAddCategoryClicked() {}
+  onEditCompanyClicked(model: Company) {
+    this.companyModel = model;
+  }
 
-  onEditCategoryClicked(model: Category) {}
+  onEditCompanySubmited(model: Company) {
+    this.companiesApiSrv
+      .edit({
+        id: model.id,
+        name: model.name,
+        logoUrl: model.logoUrl,
+        email: model.email,
+      })
+      .subscribe(x => {
+        if (x) {
+          this.companies = this.companies.map(company =>
+            company.id === x.id ? { ...company, ...x } : company
+          );
+          this.companyModel = null;
+        }
+      });
+  }
 
-  loadData(event: { first: number }) {
+  onAddCategoryClicked() {
+    this.categoryModel = {} as Category;
+  }
+
+  onAddCategorySubmited(model: Category) {
+    this.categoriesApiSrv
+      .add({
+        name: model.name,
+      })
+      .subscribe(x => {
+        if (x) {
+          const newCategories = [...this.categories, { id: x, name: model.name }].sort((a, b) =>
+            a.name > b.name ? 1 : -1
+          );
+          this.categoriesDataSrv.categoriesSubject.next(newCategories);
+          this.categoryModel = null;
+        }
+      });
+  }
+
+  onEditCategoryClicked(model: Category) {
+    this.categoryModel = model;
+  }
+
+  onEditCategorySubmited(model: Category) {
+    this.categoriesApiSrv
+      .edit({
+        id: model.id,
+        name: model.name,
+      })
+      .subscribe(x => {
+        if (x) {
+          const newCategories = this.categories
+            .map(cat => {
+              return cat.id === x.id ? x : cat;
+            })
+            .sort((a, b) => (a.name > b.name ? 1 : -1));
+          this.categoriesDataSrv.categoriesSubject.next(newCategories);
+          this.categoryModel = null;
+        }
+      });
+  }
+
+  private loadData(event: { first: number }) {
     this.page.first = event.first;
-    this.apiSrv
+    this.companiesApiSrv
       .search({
         start: this.page.first,
         length: this.page.size,
         filters: this.getFilters(),
-        order: [],
+        order: [this.defaultOrdering],
       })
       .subscribe(x => {
         if (!x) {
@@ -67,7 +147,7 @@ export class CompaniesComponent implements OnInit, OnDestroy {
       });
   }
 
-  getFilters(): SearchFilter[] {
+  private getFilters(): SearchFilter[] {
     const categoryFilter = this.selectedCategory
       ? {
           name: 'categories',

@@ -12,7 +12,7 @@ export class CategoriesDataService {
 
   constructor(private apiSrv: CategoriesApiService) {
     // If Authorization was present we should call this after we ensure that we are logged in
-    this.apiSrv.search({ filters: [] }).subscribe(x => {
+    this.apiSrv.search({ filters: [], order: [{name: 'name', value: 'asc'}] }).subscribe(x => {
       if (x && x.data) {
         this.categoriesSubject.next(x.data);
       }

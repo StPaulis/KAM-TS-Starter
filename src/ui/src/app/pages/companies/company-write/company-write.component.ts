@@ -1,15 +1,16 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
+import { Company } from 'src/app/models';
 
 @Component({
   selector: 'cmd-company-write',
   templateUrl: './company-write.component.html',
-  styles: []
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class CompanyWriteComponent implements OnInit {
+export class CompanyWriteComponent {
+  @Input() model?: Company;
+  @Output() saveClicked = new EventEmitter<Company>();
 
-  constructor() { }
-
-  ngOnInit(): void {
+  onSubmit() {
+    this.saveClicked.emit(this.model);
   }
-
 }

@@ -1,1 +1,18 @@
-<p>category-write works!</p>
+<form (ngSubmit)="onSubmit()" class="mt-4">
+  <div *ngIf="!!model" class="form-group">
+    <span class="ui-float-label">
+      <input
+        id="float-input-name"
+        type="text"
+        class="form-control"
+        [(ngModel)]="model.name"
+        name="input-name"
+        pInputText
+        required
+      />
+      <label for="float-input-name">Name *</label>
+    </span>
+  </div>
+
+  <button type="submit" class="btn btn-sm btn-success">Save</button>
+</form>

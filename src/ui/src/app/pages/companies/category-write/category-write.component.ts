@@ -1,15 +1,16 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Category } from 'src/app/models';
 
 @Component({
   selector: 'cmd-category-write',
   templateUrl: './category-write.component.html',
-  styles: []
+  styles: [],
 })
-export class CategoryWriteComponent implements OnInit {
+export class CategoryWriteComponent {
+  @Input() model?: Category;
+  @Output() saveClicked = new EventEmitter<Category>();
 
-  constructor() { }
-
-  ngOnInit(): void {
+  onSubmit() {
+    this.saveClicked.emit(this.model);
   }
-
 }
