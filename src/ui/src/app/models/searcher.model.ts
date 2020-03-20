@@ -1,8 +1,8 @@
 export interface Searcher {
-  start: number;
-  length: number;
+  start?: number;
+  length?: number;
   filters: SearchFilter[];
-  order: SearchOrder[];
+  order?: SearchOrder[];
 }
 
 export interface SearchFilter {

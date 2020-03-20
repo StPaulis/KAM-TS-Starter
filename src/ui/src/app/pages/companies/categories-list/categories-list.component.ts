@@ -1,15 +1,26 @@
-import { Component, OnInit } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  ChangeDetectionStrategy,
+  Input,
+  Output,
+  EventEmitter,
+  OnChanges,
+  SimpleChanges,
+} from '@angular/core';
+import { Category } from 'src/app/models';
 
 @Component({
   selector: 'cmd-categories-list',
   templateUrl: './categories-list.component.html',
-  styles: []
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class CategoriesListComponent implements OnInit {
+export class CategoriesListComponent {
+  @Input() data: Category[] = [];
+  @Input() selected: Category = null;
+  @Output() selectedChange = new EventEmitter<Category>();
 
-  constructor() { }
-
-  ngOnInit(): void {
+  onSelectedChange(category: Category) {
+    this.selectedChange.emit(category);
   }
-
 }

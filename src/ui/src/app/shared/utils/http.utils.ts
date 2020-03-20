@@ -4,6 +4,10 @@ import { Observable, of } from 'rxjs';
 export function catchHttpError(err: HttpErrorResponse | any): Observable<any> {
   let emsg = '';
 
+  if (!err) {
+    return of(undefined);
+  }
+
   if (err.error && err.error && err.error.message) {
     emsg = `${err.error.message}`;
   } else {
@@ -19,11 +23,11 @@ export function catchHttpError(err: HttpErrorResponse | any): Observable<any> {
         break;
       default:
         emsg = `Error code ${err.status}. ${
-          err.body !== undefined ? err.body.error : err.message !== undefined ? err.message : ''
+          err.body ? err.body.error : err.message !== undefined ? err.message : ''
         }`;
     }
   }
 
-  alert(emsg);
+  alert(emsg); // TODO: Replace with a proper message service
   return of(undefined);
 }

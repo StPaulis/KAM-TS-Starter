@@ -1,1 +1,19 @@
-<p>categories-list works!</p>
+<p-listbox
+  style="max-height: 50vh"
+  [styleClass]="'w-100'"
+  [options]="data"
+  [ngModel]="selected"
+  (ngModelChange)="onSelectedChange($event)"
+  optionLabel="name"
+>
+  <p-header class="d-flex justify-content-between align-items-center">
+    <div>
+      Categories
+    </div>
+    <div>
+      <button class="btn btn-sm btn-outline-primary border-0 my-auto">
+        <i class="pi pi-plus"></i>
+      </button>
+    </div>
+  </p-header>
+</p-listbox>

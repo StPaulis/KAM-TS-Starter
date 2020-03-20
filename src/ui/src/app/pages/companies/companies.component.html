@@ -1,8 +1,12 @@
 <div class="row">
-    <div class="col-12 col-sm-4">
-        <cmd-categories-list></cmd-categories-list>
-    </div>
-    <div class="col-12 col-sm-8">
-        <cmd-companies-list></cmd-companies-list>
-    </div>
+  <div class="col-12 col-sm-4">
+    <cmd-categories-list
+      [data]="categories"
+      [(selected)]="selectedCategory"
+      (selectedChange)="onSelectedCategoryChanged()"
+    ></cmd-categories-list>
+  </div>
+  <div class="col-12 col-sm-8">
+    <cmd-companies-list></cmd-companies-list>
+  </div>
 </div>
