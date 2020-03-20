@@ -1,8 +1,15 @@
-<p-listbox [styleClass]="'w-100 a-listbox'" [options]="data" [(ngModel)]="forRemove" optionLabel="name">
+<p-listbox
+  [styleClass]="'w-100 a-listbox'"
+  [options]="data"
+  [(ngModel)]="forRemove"
+  (ngModelChange)="forAdd = null"
+  optionLabel="name"
+>
   <p-header>
     <p-dropdown
       [options]="nonAssociatedCategories"
       [(ngModel)]="forAdd"
+      (ngModelChange)="forRemove = null"
       placeholder="Choose to Add"
       optionLabel="name"
       [showClear]="false"
@@ -13,7 +20,7 @@
 <button
   *ngIf="forAdd"
   (click)="associate.emit({ companyId: company.id, categoryId: forAdd.id })"
-  class="btn btn-sm btn-success mt-1"
+  class="btn btn-sm btn-success mt-1 mr-1"
 >
   Add
 </button>

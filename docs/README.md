@@ -1,2 +1,46 @@
-# KAM-TS-Starter
-Koa Mongo Angular Typescript starter for crud 
+# kam-ts
+Koa Mongo Angular TypeScript, crud api starter for a Company Management Demo project.
+
+You can see the project running in http://188.166.27.17:4205
+## Requirements
+
+- Node >= 12.4.0
+- Mongo >= 3.6
+
+## How to Deploy (2 options)
+
+### 1) Manually
+##### Server
+- cd src/api/ 
+- npm i
+- npm run build
+- npm start
+##### Client
+- cd src/ui/ 
+- npm i
+- npm start
+
+### 2) Docker
+- docker-compose up -d
+
+## How to Test ([Jest](https://jestjs.io/en/))
+
+ - cd src/api/
+ - npm run test
+
+## Api Documentation
+
+ You can find the documentation for the api if you open the file `docs/api/index.html` to your browser.
+
+ The documentation was powered by [apiDocs](https://api-docs.io/).
+
+ ## Considerations
+
+ In this project authentication was not implemented, although it would be easy to use JSON Web Token as OAuth 2.0 Bearer Token to implement the Authentication flow.    
+
+ ## Variables
+
+| NAME          | Default                                         | 
+| ------------- |:-----------------------------------------------:| 
+| MONGO_URL     | mongodb://127.0.0.1:27017/companyManagementDemo | 
+| API_PORT      | 3000                                            |

@@ -7,6 +7,7 @@ import { getEnviromentVariables } from './core/enviroment-variables';
 import { containerRegistries } from './core/utils';
 import { httpErrorHandler } from './core/utils/http.utils';
 import { categoriesRouter, companiesRouter } from './web/routers';
+import { initDefaultData } from './db/_migration/init-data';
 
 const app = new Koa();
 app.use(bodyParser());
@@ -27,8 +28,9 @@ mongoose.connect(getEnviromentVariables().mongoConnection, {
 
 const dbConn = mongoose.connection;
 dbConn.on('error', () => new Error('[MongoDB]: Connection error'));
-dbConn.once('open', () => {
+dbConn.once('open', async () => {
   console.log('[MongoDB]: Connected');
+  await initDefaultData();
 });
 
 process.on('SIGINT', () => {

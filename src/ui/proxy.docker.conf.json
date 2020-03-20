@@ -1,0 +1,8 @@
+{
+  "/api": {
+    "changeOrigin": true,
+    "logLevel": "info",
+    "secure": false,
+    "target": "http://api:3000"
+  }
+}
