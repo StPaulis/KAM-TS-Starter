@@ -4,7 +4,7 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve --proxy-config proxy.conf.json  --port 4205 -o",
-    "start:prod": "ng serve --proxy-config proxy.docker.conf.json --prod --host 0.0.0.0 --port 4205 -o",
+    "start:prod": "ng serve --proxy-config proxy.docker.conf.json --prod --host 0.0.0.0 --port 4205",
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
