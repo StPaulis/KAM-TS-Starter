@@ -10,6 +10,8 @@ services:
     environment:
         MONGO_URL: "mongodb://mongo:27017/companyManagementDemo"  
         API_PORT: 3000
+    depends_on: 
+      - mongo
     links:
       - mongo
   mongo:
@@ -23,6 +25,8 @@ services:
     container_name: ui
     volumes: 
       - npm-cache:/root/.npm
+    depends_on: 
+      - api
     build:
       context: ui
     ports:
