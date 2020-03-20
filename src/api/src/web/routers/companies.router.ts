@@ -93,8 +93,8 @@ companiesRouter.put('/', updateCompanyController);
 companiesRouter.get('/:id', getCompanyByIdController);
 
 /**
- * @api {get} /api/companies/{id}
- * @apiName Get a company by Id
+ * @api {post} /api/companies/category
+ * @apiName Associate Company to Category
  * @apiGroup Companies
  * @apiParamExample {json} Request-Example:
  * { companyId: string; categoryId: string }

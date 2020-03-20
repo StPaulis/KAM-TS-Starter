@@ -112,6 +112,34 @@
     "groupTitle": "Companies"
   },
   {
+    "type": "post",
+    "url": "/api/companies/category",
+    "title": "",
+    "name": "Associate_Company_to_Category",
+    "group": "Companies",
+    "parameter": {
+      "examples": [
+        {
+          "title": "Request-Example:",
+          "content": "{ companyId: string; categoryId: string }",
+          "type": "json"
+        }
+      ]
+    },
+    "success": {
+      "examples": [
+        {
+          "title": "Success-Response:",
+          "content": "{\n   id: string;\n   name: string;\n   logoUrl: string;\n   email: string;\n   categories: string[];\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "version": "0.0.0",
+    "filename": "src/web/routers/companies.router.ts",
+    "groupTitle": "Companies"
+  },
+  {
     "type": "put",
     "url": "/api/companies",
     "title": "",
@@ -145,34 +173,6 @@
     "title": "",
     "name": "Get_a_company_by_Id",
     "group": "Companies",
-    "success": {
-      "examples": [
-        {
-          "title": "Success-Response:",
-          "content": "{\n   id: string;\n   name: string;\n   logoUrl: string;\n   email: string;\n   categories: string[];\n}",
-          "type": "json"
-        }
-      ]
-    },
-    "version": "0.0.0",
-    "filename": "src/web/routers/companies.router.ts",
-    "groupTitle": "Companies"
-  },
-  {
-    "type": "get",
-    "url": "/api/companies/{id}",
-    "title": "",
-    "name": "Get_a_company_by_Id",
-    "group": "Companies",
-    "parameter": {
-      "examples": [
-        {
-          "title": "Request-Example:",
-          "content": "{ companyId: string; categoryId: string }",
-          "type": "json"
-        }
-      ]
-    },
     "success": {
       "examples": [
         {
