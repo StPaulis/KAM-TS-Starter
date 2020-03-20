@@ -4,13 +4,21 @@
   [first]="first"
   [rows]="10"
   [lazy]="true"
-  (onLazyLoad)="loadData($event)"
+  (onLazyLoad)="loaded.emit($event)"
   [totalRecords]="total"
   [layout]="'grid'"
   [paginatorPosition]="'both'"
 >
-  <p-header>
-    Companies
+  <p-header class="d-flex justify-content-between align-items-center">
+    <div>
+      Companies
+    </div>
+
+    <div>
+      <button (click)="addClicked.emit()" class="btn btn-sm btn-outline-primary border-0">
+        <i class="pi pi-plus"></i>
+      </button>
+    </div>
   </p-header>
   <ng-template let-item pTemplate="gridItem">
     <div style="padding:.5em" class="ui-g-12 {{ total % 3 === 0 ? 'ui-md-4' : 'ui-md-3' }}">
@@ -18,7 +26,7 @@
         <img [attr.src]="item.logoUrl" width="60" />
         <div class="text-muted">{{ item.email }}</div>
         <hr class="ui-widget-content" style="border-top:0" />
-        <button class="btn btn-sm btn-primary mt-0" (click)="onExploreClicked(item)">
+        <button class="btn btn-sm btn-primary mt-0" (click)="editClicked.emit(item)">
           <i class="pi pi-pencil"></i>
         </button>
       </p-panel>

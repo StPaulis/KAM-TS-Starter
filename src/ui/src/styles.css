@@ -4,3 +4,7 @@
 html, body {
     font-family: 'Roboto', sans-serif;
 }
+
+body .ui-listbox .ui-listbox-header {
+    background-color: #f4f4f4;
+}

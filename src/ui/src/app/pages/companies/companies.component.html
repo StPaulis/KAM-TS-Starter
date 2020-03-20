@@ -4,15 +4,19 @@
       [data]="categories"
       [(selected)]="selectedCategory"
       (selectedChange)="onSelectedCategoryChanged()"
+      (addClicked)="onAddCategoryClicked()"
+      (editClicked)="onEditCategoryClicked($event)"
     ></cmd-categories-list>
   </div>
-  
+
   <div class="col-12 col-sm-9">
     <cmd-companies-list
       [data]="companies"
       [total]="page.total"
       [first]="page.first"
       (loaded)="loadData($event)"
+      (addClicked)="onAddCompanyClicked()"
+      (editClicked)="onEditCompanyClicked($event)"
     ></cmd-companies-list>
   </div>
 </div>

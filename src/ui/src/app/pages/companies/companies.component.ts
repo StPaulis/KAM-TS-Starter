@@ -41,6 +41,14 @@ export class CompaniesComponent implements OnInit, OnDestroy {
     this.loadData({ first: 0 });
   }
 
+  onAddCompanyClicked() {}
+
+  onEditCompanyClicked(model: Company) {}
+
+  onAddCategoryClicked() {}
+
+  onEditCategoryClicked(model: Category) {}
+
   loadData(event: { first: number }) {
     this.page.first = event.first;
     this.apiSrv
