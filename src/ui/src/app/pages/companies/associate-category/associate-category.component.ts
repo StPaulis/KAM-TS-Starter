@@ -32,7 +32,7 @@ export class AssociateCategoryComponent implements OnChanges {
   forRemove: Category;
   forAdd: Category;
 
-  constructor(private cdr: ChangeDetectorRef, private apiSrv: CompaniesApiService) {}
+  constructor(private cdr: ChangeDetectorRef) {}
 
   ngOnChanges(changes: SimpleChanges) {
     if (changes && changes.company && this.company) {

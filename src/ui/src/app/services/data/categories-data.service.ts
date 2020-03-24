@@ -17,6 +17,5 @@ export class CategoriesDataService {
         this.categoriesSubject.next(x.data);
       }
     });
-    // If Authorization was present we should call this after we ensure that we are logged in
   }
 }

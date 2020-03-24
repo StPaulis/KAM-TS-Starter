@@ -1,10 +1,10 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
 import { Category } from 'src/app/models';
 
 @Component({
   selector: 'cmd-category-write',
   templateUrl: './category-write.component.html',
-  styles: [],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CategoryWriteComponent {
   @Input() model?: Category;

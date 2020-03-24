@@ -28,8 +28,11 @@ You can see the project running in http://188.166.27.17:4205 inside Digital Ocea
 - docker-compose up -d
 
 ## How to Test ([Jest](https://jestjs.io/en/))
-
+##### Server
  - cd src/api/
+ - npm run test
+##### Client
+ - cd src/ui/
  - npm run test
 
 ## Api Documentation
@@ -42,6 +45,9 @@ You can see the project running in http://188.166.27.17:4205 inside Digital Ocea
 
  1) In this project authentication was not implemented, although it would be easy to use JSON Web Token as OAuth 2.0 Bearer Token to implement the Authentication flow.
  2) When the database does not have any entities, default data are automatically generated.
+ 3) Due to lack of time I focused on finishing the functionality of the project and had to make some shortcuts:
+- Didn’t use ngrx, akita or another state management library, although we should understand the benefits of reactive state management 
+- Added only a couple of tests
 
  ## Issues - Todos
  1) Unit tests for the server startup, that would ensure that the application starts successfully are missing. 

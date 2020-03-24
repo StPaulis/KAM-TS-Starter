@@ -1,10 +1,10 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, ChangeDetectionStrategy } from '@angular/core';
 import { Company } from 'src/app/models';
 
 @Component({
   selector: 'cmd-companies-list',
   templateUrl: './companies-list.component.html',
-  styles: [],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class CompaniesListComponent {
   @Input() data: Company[];

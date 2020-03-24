@@ -83,7 +83,6 @@ export class CompaniesComponent implements OnInit, OnDestroy {
   }
 
   onEditCompanyClicked(model: Company) {
-    console.log('clicke', model);
     this.router.navigate(['companies/' + model.id]);
   }
 
