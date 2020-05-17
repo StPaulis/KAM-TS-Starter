@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, Inject, OnDestroy, OnInit, PLATFORM_ID } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
@@ -27,6 +27,7 @@ export class CompaniesComponent implements OnInit, OnDestroy {
   onDestroy = new Subject();
 
   constructor(
+    @Inject(PLATFORM_ID) private platformId: any,
     public categoriesDataSrv: CategoriesDataService,
     private categoriesApiSrv: CategoriesApiService,
     private companiesApiSrv: CompaniesApiService,
@@ -35,21 +36,21 @@ export class CompaniesComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit() {
-    this.categoriesDataSrv.categories$.pipe(takeUntil(this.onDestroy)).subscribe(x => {
+    this.categoriesDataSrv.categories$.pipe(takeUntil(this.onDestroy)).subscribe((x) => {
       this.categories = x;
     });
 
-    this.route.params.pipe(takeUntil(this.onDestroy)).subscribe(x => {
+    this.route.params.pipe(takeUntil(this.onDestroy)).subscribe((x) => {
       if (!x || !x.id || !!this.companyModel) {
         return;
       }
 
-      if (this.companies && this.companies.some(c => c.id === x.id)) {
-        this.companyModel = { ...this.companies.find(c => c.id === x.id) };
+      if (this.companies && this.companies.some((c) => c.id === x.id)) {
+        this.companyModel = { ...this.companies.find((c) => c.id === x.id) };
         return;
       }
 
-      this.companiesApiSrv.getbyId(x.id).subscribe(res => {
+      this.companiesApiSrv.getbyId(x.id).subscribe((res) => {
         this.companyModel = res || null;
       });
     });
@@ -74,7 +75,7 @@ export class CompaniesComponent implements OnInit, OnDestroy {
         logoUrl: model.logoUrl,
         email: model.email,
       })
-      .subscribe(x => {
+      .subscribe((x) => {
         if (x) {
           this.loadData({ first: this.page.first });
           this.companyModel = null;
@@ -94,9 +95,9 @@ export class CompaniesComponent implements OnInit, OnDestroy {
         logoUrl: model.logoUrl,
         email: model.email,
       })
-      .subscribe(x => {
+      .subscribe((x) => {
         if (x) {
-          this.companies = this.companies.map(company =>
+          this.companies = this.companies.map((company) =>
             company.id === x.id ? { ...company, ...x } : company
           );
         }
@@ -112,7 +113,7 @@ export class CompaniesComponent implements OnInit, OnDestroy {
       .add({
         name: model.name,
       })
-      .subscribe(x => {
+      .subscribe((x) => {
         if (x) {
           const newCategories = [...this.categories, { id: x, name: model.name }].sort((a, b) =>
             a.name > b.name ? 1 : -1
@@ -133,10 +134,10 @@ export class CompaniesComponent implements OnInit, OnDestroy {
         id: model.id,
         name: model.name,
       })
-      .subscribe(x => {
+      .subscribe((x) => {
         if (x) {
           const newCategories = this.categories
-            .map(cat => {
+            .map((cat) => {
               return cat.id === x.id ? x : cat;
             })
             .sort((a, b) => (a.name > b.name ? 1 : -1));
@@ -147,13 +148,25 @@ export class CompaniesComponent implements OnInit, OnDestroy {
   }
 
   onAssociateCategoryClicked(model: { companyId: string; categoryId: string }) {
-    this.companiesApiSrv.associateCategory(model).subscribe(res => {
+    this.companiesApiSrv.associateCategory(model).subscribe((res) => {
       if (!res) {
         return;
       }
 
       this.companyModel = { ...this.companyModel, categories: res.categories };
-      this.companies = this.companies.map(x => (res.id === x.id ? res : x));
+      this.companies = this.companies.map((x) => (res.id === x.id ? res : x));
+    });
+  }
+
+  onDeleteCompanyClicked(id: string) {
+    this.companiesApiSrv.delete(id).subscribe((res) => {
+      if (!res) {
+        return;
+      }
+      this.companies = this.companies.filter((x) => x.id !== id);
+      if (this.companyModel.id === id) {
+        this.companyModel = undefined;
+      }
     });
   }
 
@@ -171,7 +184,7 @@ export class CompaniesComponent implements OnInit, OnDestroy {
         filters: this.getFilters(),
         order: [this.defaultOrdering],
       })
-      .subscribe(x => {
+      .subscribe((x) => {
         if (!x) {
           return;
         }
@@ -189,6 +202,6 @@ export class CompaniesComponent implements OnInit, OnDestroy {
         }
       : undefined;
 
-    return [categoryFilter].filter(x => !!x);
+    return [categoryFilter].filter((x) => !!x);
   }
 }

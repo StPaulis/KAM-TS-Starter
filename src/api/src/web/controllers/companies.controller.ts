@@ -62,3 +62,10 @@ export const associateCategoryToCompanyController = async (ctx: Context, next: N
 
   await next();
 };
+
+export const deleteCompanyController = async (ctx: Context, next: Next) => {
+  const srv = ctx.scope.resolve(serviceName) as services.CompaniesService;
+  const id = ctx.params.id as string;
+  ctx.body = await srv.delete(id);
+  await next();
+};

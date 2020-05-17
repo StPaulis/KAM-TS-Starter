@@ -13,5 +13,6 @@ export class CompaniesListComponent {
   @Input() size = 9;
   @Output() loaded = new EventEmitter<{ first: number }>();
   @Output() addClicked = new EventEmitter<void>();
+  @Output() deleteClicked = new EventEmitter<string>();
   @Output() editClicked = new EventEmitter<Company>();
 }

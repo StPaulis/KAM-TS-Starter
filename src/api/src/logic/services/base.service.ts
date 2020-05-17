@@ -12,6 +12,18 @@ export abstract class BaseService<T extends mongoose.Document> implements Servic
     this.repository = repository;
   }
 
+  public async delete(id: string): Promise<T> {
+    try {
+      console.log('Delete Started: ' + JSON.stringify(id, null, 2));
+      const result = await this.repository.delete(id);
+      return this.mapToJson(result);
+    } catch (err) {
+      throw new Error('Delete failed');
+    } finally {
+      console.log('Finishing Delete');
+    }
+  }
+
   public async update(item: T): Promise<T> {
     try {
       console.log('Update Started: ' + JSON.stringify(item, null, 2));
@@ -54,7 +66,7 @@ export abstract class BaseService<T extends mongoose.Document> implements Servic
       console.log('Get Started: ' + JSON.stringify(searchModel, null, 2));
       const res = await this.repository.search(searchModel);
       if (res && res.data) {
-        res.data = res.data.map(x => this.mapToJson(x));
+        res.data = res.data.map((x) => this.mapToJson(x));
       }
       return res;
     } catch (error) {
@@ -66,8 +78,8 @@ export abstract class BaseService<T extends mongoose.Document> implements Servic
   }
 
   private mapToJson(item: T): T {
-    return idx(item, _ => {
-      const result = _ && _.toJSON ? _.toJSON() : {..._} ;
+    return idx(item, (_) => {
+      const result = _ && _.toJSON ? _.toJSON() : { ..._ };
       result.id = result._id;
       delete result._id;
       delete result.__v;

@@ -1,6 +1,6 @@
-import {Context,Next} from 'koa';
-import {ICategory} from '../../db/schemas';
-import {Searcher} from '../../logic/models/searcher.model';
+import { Context, Next } from 'koa';
+import { ICategory } from '../../db/schemas';
+import { Searcher } from '../../logic/models/searcher.model';
 import * as services from '../../logic/services';
 const serviceName = 'categoriesService';
 
@@ -30,3 +30,5 @@ export const updateCategoryController = async (ctx: Context, next: Next) => {
 
   await next();
 };
+
+

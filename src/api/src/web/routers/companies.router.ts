@@ -5,6 +5,7 @@ import {
   getCompaniesController,
   getCompanyByIdController,
   updateCompanyController,
+  deleteCompanyController,
 } from '../controllers';
 
 export const companiesRouter = new Router({
@@ -108,3 +109,18 @@ companiesRouter.get('/:id', getCompanyByIdController);
  * }
  */
 companiesRouter.post('/category', associateCategoryToCompanyController);
+
+/**
+ * @api {post} /api/companies/{id}
+ * @apiName Delete Company
+ * @apiGroup Companies
+ * @apiSuccessExample {json} Success-Response:
+ * {
+ *    id: string;
+ *    name: string;
+ *    logoUrl: string;
+ *    email: string;
+ *    categories: string[];
+ * }
+ */
+companiesRouter.delete('/:id', deleteCompanyController);

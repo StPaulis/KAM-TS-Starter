@@ -9,6 +9,15 @@ export abstract class BaseRepository<T extends mongoose.Document> implements Rep
     this.db = db;
   }
 
+  public async delete(id: string): Promise<T> {
+    try {
+      return await this.db.findByIdAndDelete(new mongoose.Types.ObjectId(id)).exec();
+    } catch (error) {
+      console.error(error);
+      throw new Error('Deleting failed');
+    }
+  }
+
   public async update(item: T): Promise<T> {
     try {
       const id = item._id || item.id;
