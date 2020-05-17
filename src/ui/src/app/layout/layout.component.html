@@ -3,12 +3,31 @@
     Company Management Demo
   </h1>
 </header>
+<!-- <div class="d-flex justify-content-end">
+  <button [hidden]="!isAuthenticate" class="btn btn-sm btn-link" (click)="onLogoutClicked()">
+    Log Out
+  </button>
+</div> -->
+
+<p-menubar styleClass="mt-1" *ngIf="isAuthenticate" [model]="items">
+  <div>
+    <button
+      class="btn btn-link"
+      label="Logout"
+      style="margin-left: 0.25em;"
+      (click)="onLogoutClicked()"
+    >
+      Logout
+    </button>
+  </div>
+</p-menubar>
+
 <div class="container-fluid mt-4">
   <router-outlet></router-outlet>
 </div>
-<footer class="fixed-bottom bg-primary text-light p-1" style="font-size:small;">
+<footer class="fixed-bottom bg-primary text-light p-1" style="font-size: small;">
   Developed by
-  <a href="https://github.com/StPaulis" class="font-italic text-dark">
+  <a href="https://github.com/StPaulis" class="font-italic text-dark mr-auto">
     Stamatis Pavlis
   </a>
 </footer>

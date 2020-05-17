@@ -7,7 +7,11 @@ body {
 }
 
 body .ui-listbox .ui-listbox-header {
-  background-color: #f4f4f4;
+  background-color: var(--light);
+}
+
+body  {
+  background-color: var(--light);
 }
 
 .mydialog {
@@ -22,4 +26,8 @@ body .ui-listbox .ui-listbox-header {
 
 body .ui-dialog .ui-dialog-content {
   min-height: 250px;
+}
+
+body .ui-menubar {
+  background-color: var(--light);
 }

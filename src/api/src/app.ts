@@ -6,8 +6,8 @@ import mongoose from 'mongoose';
 import { getEnviromentVariables } from './core/enviroment-variables';
 import { containerRegistries } from './core/utils';
 import { httpErrorHandler } from './core/utils/http.utils';
-import { categoriesRouter, companiesRouter } from './web/routers';
 import { initDefaultData } from './db/_migration/init-data';
+import { authRouter, categoriesRouter, companiesRouter } from './web/routers';
 
 const app = new Koa();
 app.use(bodyParser());
@@ -55,6 +55,7 @@ app.use(async (ctx, next) => {
 // #region Routers
 app.use(categoriesRouter.routes());
 app.use(companiesRouter.routes());
+app.use(authRouter.routes());
 // //#endregion
 
 export default app;
