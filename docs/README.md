@@ -4,8 +4,6 @@ Koa Mongo Angular TypeScript, crud api starter for a Company Management Demo pro
 The client has been generated with Angular CLI.
  PrimeNg components & Bootstrap have been used to build the UI.
 
-You can see the project running in http://188.166.27.17:4205 inside Digital Ocean's droplet.
-
 ## Requirements
 
 - Node >= 12.4.0
