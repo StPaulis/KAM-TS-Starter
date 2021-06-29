@@ -43,9 +43,8 @@ The client has been generated with Angular CLI.
 
  1) In this project authentication is implemented without any credentials just to show how guards should be set up.
  2) When the database does not have any entities, default data are automatically generated.
- 3) Due to lack of free time I focused on finishing the functionality of the project and had to make some shortcuts:
-- Didn’t use ngrx, akita or another state management library, although we should understand the benefits of reactive state management 
-- Added only a couple of tests :)
+ 3) Didn’t use ngrx, akita or another state management library, although we should understand the benefits of reactive state management 
+ 4) Some important test cases may be missing :)
 
  ## Issues - Todos
  1) Unit tests for the server startup, that would ensure that the application starts successfully are missing. 
